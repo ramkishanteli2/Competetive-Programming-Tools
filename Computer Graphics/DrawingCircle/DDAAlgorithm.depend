@@ -896,3 +896,9 @@
 	<algorithm>
 	<math.h>
 
+1649853612 source:d:\programs\competitive programming tools\computer graphics\drawingcircle\main.cpp
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+	<math.h>
+

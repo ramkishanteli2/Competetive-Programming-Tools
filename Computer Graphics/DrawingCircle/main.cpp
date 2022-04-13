@@ -24,23 +24,65 @@ void display();
 void reshape(int,int);
 void init(){
     //Color mode is RGB and we can give the color in the range 0 - 1.0
-    glClearColor(0.0,100.0,100.0,1.0);
+    glClearColor(0.0,0.0,0,1.0);
 }
-int r;
+int sx,sy,ex,ey;
+void DDAAlgorithm(int x1,int y1,int x2,int y2){
+    /*
+        Algorithm:
+            find dx = x2-x1
+                 dy = y2-y1
+                 steps = max(dx,dy)
+                 m = dy/dx
+                 xin = dx/steps
+                 yin = dy/steps
+
+            for(int i = 0;i<=steps;i++){
+                putpixel(x1,y1);
+                x1 = x1 + xin;
+                y1 = y1 + yin;
+            }
+
+    */
+    int dx = x2-x1, dy = y2-y1;
+    int steps = max(abs(dx),abs(dy));
+    float xin = dx*1.0/steps;
+    float yin = dy*1.0/steps;
+    float sx = x1;
+    float sy = y1;
+
+    glPointSize(6.0);
+    //Parameter passed in glBegin() is called geometric primitives like GL_POINTS,GL_TRIANGLE
+    glBegin(GL_POINTS);
+
+    for(int i = 0;i<steps;i++){
+
+        glVertex2i(round(sx),round(sy));
+
+        sx = sx + xin;
+        sy = sy + yin;
+    }
+
+    glEnd();
+
+}
+
 int main(int argc,char ** argv){
 
     glutInit(&argc,argv); //Initialize the glut library
     glutInitDisplayMode(GLUT_RGB); // Initialize display color mode
 
-    glutInitWindowPosition(0,0);
-    glutInitWindowSize(1920,1080);
+    glutInitWindowPosition(200,100);
+    glutInitWindowSize(700,600);
 
     glutCreateWindow("Learning OpenGL");
 
 
-    cout << "Enter radius of the circle: ";
-    cin >> r;
+    cout << "Enter First Points Coordinates (x1,y1): ";
+    cin >> sx >> sy;
 
+    cout << "Enter Second Points Coordinates (x2,y2): ";
+    cin >> ex >> ey;
     //Used for clear the windows and redraw the stuff
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
@@ -57,15 +99,9 @@ void display(){
     //Used to draw the stuff again onto the screen
     //Whatever stored in the buffer will not automatically changed to the screen before calling the glFlush();
     //Everything work on vertex in openGL
-    glColor3f(0.0f, 0.0f, 0.0f);
-    float theta;
-    glBegin(GL_LINE_LOOP);
-    for(int i = 0;i<360;i++){
-        //Degree to radius converter 1deg = pi/180
-        theta = i*3.142 / 180;
-        glVertex2f(r*cos(theta),r*sin(theta));
-    }
-    glEnd();
+
+
+    DDAAlgorithm(sx,sy,ex,ey);
 
     glFlush();
 }
