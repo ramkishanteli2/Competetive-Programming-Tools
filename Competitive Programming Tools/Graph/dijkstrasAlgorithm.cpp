@@ -16,7 +16,7 @@ void fio(){
 void dijkstra(int v,vector<pair<int,int>>adj[]){
 	vector<int>dist(v+1,INT_MAX);
 	dist[1] = 0;
-	priority_queue<pair<int,int>>pq;
+	priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
 	pq.push({0,1});
 
 	while(!pq.empty()){
@@ -48,7 +48,7 @@ int main() {
 		freopen("input.txt","r",stdin);
 		freopen("output.txt","w",stdout);
 	#endif
-		
+
 	fio();
 	int t;
 	cin>>t;
