@@ -1,11 +1,12 @@
 #include <iostream>
+#include <vector>
 #include <math.h>
 using namespace std;
 class HammingCode{
     int *data;
     int n;
     int no_parity_bits;
-    int *sentData;
+    vector<int>sentData;
     int size;
 public:
     bool isPowerOf2(int n){
@@ -22,20 +23,25 @@ public:
         for(int i = n-1;i >= 0;i--){
             cin >> data[i];
         }
-        no_parity_bits = ceil(log2(n)) + 1;
-        cout << "Total number of parity bits are " << no_parity_bits << endl;
-        size = no_parity_bits + n;
-        cout << "Total bits has to be sent: " << size << endl;
-        sentData = new int[size+1];
+        no_parity_bits = 0;
+        //no_parity_bits = ceil(log2(n)) + 1;
+        //sentData = new int[size+1];
         int i = 0;
         int j = 1;
-        while(j <= size){
+        sentData.push_back(0);
+        while(i < n){
             if(!isPowerOf2(j)){
-                sentData[j] = data[i];
+                sentData.push_back(data[i]);
                 i++;
+            }else{
+                no_parity_bits++;
+                sentData.push_back(0);
             }
             j++;
         }
+        cout << "Total number of parity bits are " << no_parity_bits << endl;
+        size = no_parity_bits + n;
+        cout << "Total bits has to be sent: " << size << endl;
 
     }
     void sender(){
