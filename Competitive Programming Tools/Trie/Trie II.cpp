@@ -52,7 +52,7 @@ public:
 	Trie(){
 		root = new Node();
 	}
-	void insert(string word){
+	void insert(string &word){
 		Node *node = root;
 		int n = word.size();
 		for(int i = 0;i < n;i++){
@@ -66,7 +66,7 @@ public:
 		node -> setEnd();
 		//cout << node -> endWith << endl;
 	}
-	bool search(string word){
+	bool search(string &word){
 		Node *node = root;
 		int n = word.size();
 		for(int i = 0;i < n;i++){
@@ -75,7 +75,7 @@ public:
 		}
 		return node -> isEnd();
 	}
-	bool startWith(string prefix){
+	bool startWith(string &prefix){
 		Node *node = root;
 		int n = prefix.size();
 		for(int i = 0;i < n;i++){
@@ -84,7 +84,7 @@ public:
 		}
 		return true;
 	}
-	int countWordsEqualTo(string word){
+	int countWordsEqualTo(string &word){
         Node *node = root;
 		int n = word.size();
 		for(int i = 0;i < n;i++){
@@ -94,7 +94,7 @@ public:
 		return node -> isEnd();
     }
 
-    int countWordsStartingWith(string prefix){
+    int countWordsStartingWith(string &prefix){
         Node *node = root;
 		int n = prefix.size();
 		for(int i = 0;i < n;i++){
@@ -103,7 +103,7 @@ public:
 		}
 		return node -> cntPre;
     }
-    void erase(string word){
+    void erase(string &word){
         Node *node = root;
 		int n = word.size();
 		for(int i = 0;i < n;i++){
